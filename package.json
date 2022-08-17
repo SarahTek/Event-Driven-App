@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --coverage",
-    "start": "node caps.js",
-    "dev": "nodemon caps.js"
+    "start": "node src/caps.js",
+    "dev": "nodemon src/caps.js"
   },
   "repository": {
     "type": "git",

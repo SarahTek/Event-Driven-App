@@ -10,7 +10,7 @@ function pickUp(payload) {
 
   setTimeout(() => {
     eventCaps.emit('pickUp', payload);
-    console.log(`DRIVER picked up: ${payload.orderId}`);
+    console.log(`DRIVER picked up: ${payload.orderID}`);
 
   }, 1000);
 }
@@ -19,7 +19,7 @@ function inTransit(payload) {
 
   setTimeout(() => {
     eventCaps.emit('inTransit', payload);
-    console.log(`DRIVER in Transit: ${payload.orderId}`);
+    console.log(`DRIVER in Transit: ${payload.orderID}`);
 
   }, 2000);
 }
@@ -28,7 +28,7 @@ function delivered(payload) {
 
   setTimeout(() => {
     eventCaps.emit('delivered', payload);
-    console.log(`DRIVER delivered: ${payload.orderId}`);
+    console.log(`DRIVER delivered: ${payload.orderID}`);
 
   }, 3000);
 }
