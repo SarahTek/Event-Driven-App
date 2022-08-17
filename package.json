@@ -1,0 +1,27 @@
+{
+  "name": "event-driven-app",
+  "version": "1.0.0",
+  "description": "## Phase 1 Requirements",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "node caps.js",
+    "dev": "nodemon caps.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarahTek/Event-Driven-App.git"
+  },
+  "author": "Sarah Teklemariam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SarahTek/Event-Driven-App/issues"
+  },
+  "homepage": "https://github.com/SarahTek/Event-Driven-App#readme",
+  "dependencies": {
+    "chance": "^1.1.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
