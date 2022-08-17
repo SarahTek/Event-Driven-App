@@ -1,4 +1,4 @@
-const { isDate } = require('util/types');
+// const { isDate } = require('util/types');
 const eventCaps = require('./events.js');
 require('./vendor.js');
 require('./driver.js');
@@ -7,9 +7,9 @@ require('./driver.js');
 eventCaps.emit('start');
 
 eventCaps.addListener('pickUp', (payload) => {
-  const date = Date.now();
-  const todayTime = new Date(date).toUTCString();
-  console.log(`
+    const date = Date.now();
+    const todayTime = new Date(date).toUTCString();
+    console.log(`
       EVENT: {\n
           event: "pickup",\n
           time: "${todayTime}",\n
@@ -24,9 +24,9 @@ eventCaps.addListener('pickUp', (payload) => {
 
 
 eventCaps.addListener('inTransit', (payload) => {
-  const date = Date.now();
-  const todayTime = new Date(date).toUTCString();
-  console.log(`
+    const date = Date.now();
+    const todayTime = new Date(date).toUTCString();
+    console.log(`
       EVENT: {\n
           event: "inTransit",\n
           time: "${todayTime}",\n
@@ -40,9 +40,9 @@ eventCaps.addListener('inTransit', (payload) => {
 });
 
 eventCaps.addListener('delivered', (payload) => {
-  const date = Date.now();
-  const todayTime = new Date(date).toUTCString();
-  console.log(`
+    const date = Date.now();
+    const todayTime = new Date(date).toUTCString();
+    console.log(`
       EVENT: {\n
           event: "delivered",\n
           time: "${todayTime}",\n
@@ -55,5 +55,5 @@ eventCaps.addListener('delivered', (payload) => {
       }`);
 });
 module.exports = {
-  eventCaps,
+    eventCaps,
 }
