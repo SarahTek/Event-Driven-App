@@ -27,6 +27,10 @@ Each Vendor and Driver Client will connect to the caps namespace.
 - Each Vendor will only emit and listen for specific events based on their Vendor ID. This will be managed by rooms within Socket.io.
 - Each Driver will “pick up” a package when the vendor notifies the Server that an “order” is ready and simulate “in-transit” and “delivered” events.
 
+## PR for Lab 12
+
+- [PR for lab 12](https://github.com/SarahTek/Event-Driven-App/pull/4)
+
 ## Caps UML
 
 ![Caps UML](caps-UML.png)
