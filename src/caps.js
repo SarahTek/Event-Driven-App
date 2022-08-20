@@ -1,59 +1,49 @@
 // const { isDate } = require('util/types');
-const eventCaps = require('./events.js');
-require('./vendor.js');
-require('./driver.js');
+const socketIo = require('socket.io');
+const io = socketIo(3000);
 
 
-eventCaps.emit('start');
+function start() {
 
-eventCaps.addListener('pickUp', (payload) => {
-    const date = Date.now();
-    const todayTime = new Date(date).toUTCString();
-    console.log(`
-      EVENT: {\n
-          event: "pickup",\n
-          time: "${todayTime}",\n
-          payload: {\n
-              store: "${payload.store}", \n
-              orderID: "${payload.orderID}", \n
-              customer: "${payload.customer}", \n
-              address: "${payload.address}", \n
-          },
-      }`);
-});
+    io.on('connection', (client) => {
+        client.on('newOrder', (payload) => {
+            io.emit('orderForPickup', payload);
+        });
+        client.on('driver-picked-up', (payload) => {
+            eventLogger(payload, 'pickUp');
+            io.emit('in-transit', payload);
+        });
 
+        client.on('package-in-transit', (payload) => {
+            eventLogger(payload, 'in-transit');
+            io.emit('order-delivered', payload);
+        });
 
-eventCaps.addListener('inTransit', (payload) => {
-    const date = Date.now();
-    const todayTime = new Date(date).toUTCString();
-    console.log(`
-      EVENT: {\n
-          event: "inTransit",\n
-          time: "${todayTime}",\n
-          payload: {\n
-              store: "${payload.store}", \n
-              orderID: "${payload.orderID}", \n
-              customer: "${payload.customer}", \n
-              address: "${payload.address}", \n
-          },
-      }`);
-});
+        client.on('package-delivered', (payload) => {
+            eventLogger(payload, 'delivered');
+            io.emit('delivered-confirmation', payload);
+        });
+    });
 
-eventCaps.addListener('delivered', (payload) => {
-    const date = Date.now();
-    const todayTime = new Date(date).toUTCString();
-    console.log(`
-      EVENT: {\n
-          event: "delivered",\n
-          time: "${todayTime}",\n
-          payload: {\n
-              store: "${payload.store}", \n
-              orderID: "${payload.orderID}", \n
-              customer: "${payload.customer}", \n
-              address: "${payload.address}", \n
-          },
-      }`);
-});
-module.exports = {
-    eventCaps,
 }
+
+
+
+function eventLogger(payload, str) {
+    const date = Date.now();
+    const todayTime = new Date(date).toUTCString();
+    console.log(`
+      EVENT: {\n
+          event: "${str}",\n
+          time: "${todayTime}",\n
+          payload: {\n
+              store: "${payload.store}", \n
+              orderID: "${payload.orderID}", \n
+              customer: "${payload.customer}", \n
+              address: "${payload.address}", \n
+          },
+      }`);
+}
+
+
+start();

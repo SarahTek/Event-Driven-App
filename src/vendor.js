@@ -1,10 +1,10 @@
-const events = require('./events.js');
+// const events = require('./events.js');
+const { io } = require('socket.io-client');
+const socket = io('ws://localhost:3000');
 const Chance = require('chance');
 
 const chance = Chance();
 
-events.addListener('start', CustPackage);
-events.addListener('delivered', DeliveredPackage);
 
 
 function CustPackage() {
@@ -22,20 +22,22 @@ function CustPackage() {
       address: city + ', ' + state,
 
     }
-    events.emit('newPackage', order);
+    socket.emit('newOrder', order);
 
   }, 10000);
 
 }
 
-function DeliveredPackage(payload) {
-  setTimeout(() => {
-    console.log(`Thank You, ${payload.customer}`);
-  }, 1000);
-}
+function DeliveredPackage() {
+  socket.on('delivered-confirmation', payload => {
+    setTimeout(() => {
+
+      console.log(`Thank You, ${payload.customer}`);
+    }, 1000);
+  });
 
 
-module.exports = {
-  CustPackage,
-  DeliveredPackage
 }
+
+CustPackage();
+DeliveredPackage();
