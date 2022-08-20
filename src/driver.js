@@ -1,41 +1,38 @@
-const eventCaps = require('./events');
+const { io } = require('socket.io-client');
+const socket = io('ws://localhost:3000');
 
 
-eventCaps.addListener('newPackage', pickUp);
-eventCaps.addListener('pickUp', inTransit);
-eventCaps.addListener('inTransit', delivered);
+function pickUp() {
 
-
-function pickUp(payload) {
-
-  setTimeout(() => {
-    eventCaps.emit('pickUp', payload);
-    console.log(`DRIVER picked up: ${payload.orderID}`);
-
-  }, 1000);
+  socket.on('orderForPickup', (payload) => {
+    setTimeout(() => {
+      console.log(`DRIVER picked up: ${payload.orderID}`);
+      socket.emit('driver-picked-up', payload);
+    }, 1000);
+  });
 }
 
-function inTransit(payload) {
+function inTransit() {
+  socket.on('in-transit', (payload) => {
+    setTimeout(() => {
+      console.log(`DRIVER in Transit: ${payload.orderID}`);
+      socket.emit('package-in-transit', payload);
 
-  setTimeout(() => {
-    eventCaps.emit('inTransit', payload);
-    console.log(`DRIVER in Transit: ${payload.orderID}`);
-
-  }, 2000);
-}
-
-function delivered(payload) {
-
-  setTimeout(() => {
-    eventCaps.emit('delivered', payload);
-    console.log(`DRIVER delivered: ${payload.orderID}`);
-
-  }, 3000);
+    }, 2000);
+  });
 }
 
 
-module.exports = {
-  pickUp,
-  inTransit,
-  delivered,
+function delivered() {
+  socket.on('order-delivered', (payload) => {
+    setTimeout(() => {
+      console.log(`DRIVER delivered package: ${payload.orderID}`);
+      socket.emit('package-delivered', payload);
+
+    }, 3000);
+  });
 }
+
+pickUp();
+inTransit();
+delivered();
