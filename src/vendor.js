@@ -2,7 +2,6 @@
 const { io } = require('socket.io-client');
 const socket = io('ws://localhost:3000');
 const Chance = require('chance');
-
 const chance = Chance();
 
 
@@ -15,7 +14,7 @@ function CustPackage() {
     const city = chance.city();
     const state = chance.state();
 
-    const order = {
+    let order = {
       store: company,
       orderID: orders,
       customer: name,

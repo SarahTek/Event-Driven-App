@@ -1,6 +1,9 @@
 // const { isDate } = require('util/types');
 const socketIo = require('socket.io');
 const io = socketIo(3000);
+const vendor = io.of("./vendor");
+const driver = io.of("./driver");
+
 
 
 function start() {
