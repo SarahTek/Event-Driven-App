@@ -18,10 +18,17 @@ And as developers, here are some of the development stories that are newly relev
 - As a developer, I want to delete messages from the queue after they’ve been received by a subscriber, so that I don’t re-send them.
 - As a developer, I want to create a system for allowing subscribers to retrieve all undelivered messages in their queue.
 
-## UML 
-- ![Queue UML](queue.png)
+## PR for Lab 12
+
+- [PR for lab 13](https://github.com/SarahTek/Event-Driven-App/pull/10)
+
+## Caps UML
+
+![Caps UML](caps-UML.png)
 
 
 ### Collaborators
  
 - Martha 
+- Danny
+- Tony
